@@ -32,11 +32,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="">Coord: </label>
-                <input class="form-control" type="text" placeholder="Av. E. Madero 1020">
+                <label for="">Coordenadas: </label>
+                <input class="form-control" number="text" id="form-coord-lat" placeholder="lat: -34.6131500">
+                <input class="form-control" number="text" id="form-coord-lng" placeholder="lng: -58.3772300">
             </div>
 
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <button class="btn btn-primary" onclick="getFormData()">Agregar</button>
         </form>
         <section>
             <div id="map"></div>
