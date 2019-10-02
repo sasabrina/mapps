@@ -32,3 +32,18 @@ const addMarker = () => {
         infoWindow.open(map, marker)
     })
 }
+
+//funcion para obtener coordenadas
+const getCoords = placeName =>{
+    let encondedPlaceName = encodeURIComponent(placeName)
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encondedPlaceName}&key=AIzaSyDriPWRjCuM0jQ6d6oTPoGaWo2EU_x3nJU`)
+    .then(response => response.json())
+    .then(res => {
+        let { geometry:{ location } } = res.results[0]
+        console.log(location);
+        
+    })
+    .catch(error => console.log(error))
+}
+
+getCoords('Av. E. Madero 1020')
