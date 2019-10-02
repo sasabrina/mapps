@@ -12,5 +12,6 @@ router.get('/', (req, res) => {
 
 // API ROUTES
 router.get('/api/locations', locations.getLocation)
+router.post('/api/locations', locations.postLocation)
 
 module.exports = router;

@@ -1,31 +1,24 @@
-const locations = [
-    {
-        name: 'Aeroterra', 
-        address: 'Av. E. Madero 1020', 
-        phoneNumber: '549 11 5272 0900', 
-        category: 'Residencial', 
-        coords: {
-            lat: -34.595986,
-            lng: -58.3724715
-        },
-        id: 1
-    },
-    {
-        name: 'Workinn', 
-        address: 'Pres. Tte. Gral. Juan Domingo Perón 698', 
-        phoneNumber: '3333333', 
-        category: 'Residencial', 
-        coords: {
-            lat: -34.6058542,
-            lng: -58.3786129
-        },
-        id: 2
-    }
-]
+const fs = require('fs');
+
+let locations = fs.readFileSync('locations.json')
+locations = JSON.parse(locations)
 
 const getLocation = (req, res, next) => {
-    res.json({ locations })
+    res.json( {locations} )
     next()
 }
 
-module.exports = { getLocation };
+const postLocation = (req, res, next) => {
+    let data = req.body
+    
+    if(data.hasOwnProperty('coords')){
+        locations.push(data)
+        fs.writeFileSync('locations.json', JSON.stringify(locations))
+        res.status('200').json(`Location received`)
+    } else {
+        res.status('400').json('Opps! Somenthing went wrong')
+    }
+    next()
+}
+
+module.exports = { getLocation, postLocation };

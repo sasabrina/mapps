@@ -5,25 +5,26 @@ class Location {
         this.phoneNumber = phoneNumber,
         this.category = category,
         this.coords = {
-            'lat': lat, 'lng': lng
+            'lat': lat, 
+            'lng': lng
         }
     }   
 }
 
+// VARIABLES GLOBALES
 
-//Variables globales
 const mapNode = document.getElementById('map');
 let map, marker, infoWindow;
 let intialCoords = {lat: -34.6131500, lng: -58.3772300}
 
-//harcodeo datos para probar funciones
-const locations = []
+// FUNCIONES AUXILIARES
 
-//funciones auxiliares
-//función que trae los valores del formulario
+//obtiene los valores de los inputs
 const getInputValue = (id) => {
     return document.getElementById(id).value
 }
+
+// FUNCIONES
 
 //función que carga el mapa
 function initMap (){
@@ -33,9 +34,20 @@ function initMap (){
     });
 
     getLocations()
-    
 }
 
+//obtiene los puntos de interés desde la api
+const getLocations = () => {
+    fetch('/api/locations')
+    .then(res => res.json())
+    .then(res => {
+        console.log(res.locations)
+        mappingLocations(res.locations)
+    })
+}
+
+//mapea la respueta de la api y agrega los marcadores en el mapa
+const mappingLocations = locations => locations.map(l => addMarker(l))
 
 //función que agrega el marcador en el mapa
 const addMarker = location => {
@@ -53,35 +65,6 @@ const addMarker = location => {
     })
 }
 
-const getLocations = () => {
-    fetch('/api/locations')
-    .then(res => res.json())
-    .then(res => {
-        console.log(res.locations)
-        mappingLocations(res.locations)
-    })
-}
-
-const mappingLocations = locations => locations.map(l => addMarker(l))
-
-
-const getFormData = () => {
-    event.preventDefault()
-    let name = getInputValue('form-name'),
-        address = getInputValue('form-address'),
-        phoneNumber = getInputValue('form-phone'),
-        category = getInputValue('form-category'),
-        lat = parseFloat(getInputValue('form-coord-lat')),
-        lng = parseFloat(getInputValue('form-coord-lng'))
-
-
-    let newLocation = new Location(name, address, phoneNumber, category, lat, lng)
-    console.log(newLocation);
-    locations.push(newLocation)
-    console.log(locations);
-    
-    
-}
 //crea el contenido de infoWindow
 const markerPoup = data => {
     let {name, address, phoneNumber, category, coords} = data
@@ -91,4 +74,36 @@ const markerPoup = data => {
     <p>Teléfono: ${phoneNumber}</p>
     <p>(X, Y): ${coords.lat}, ${coords.lng}</p>
     <p>Categoría: ${category}</p>`
+}
+
+// obtiene los datos cargados en el formulario y crea el nuevo punto de interés para cargar a la api
+const getFormData = () => {
+    event.preventDefault()
+    let name = getInputValue('form-name'),
+        address = getInputValue('form-address'),
+        phoneNumber = getInputValue('form-phone'),
+        category = getInputValue('form-category'),
+        lat = parseFloat(getInputValue('form-coord-lat')),
+        lng = parseFloat(getInputValue('form-coord-lng'))
+
+    let newLocation = new Location(name, address, phoneNumber, category, lat, lng)
+    console.log(newLocation);
+    postNewLocations(newLocation)
+}
+
+//carga nuevos puntos de interés en la api
+const postNewLocations = newLocation => {
+    fetch('/api/locations', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newLocation)
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+        initMap()
+    })
+    .catch(error => console.log(error))
 }
