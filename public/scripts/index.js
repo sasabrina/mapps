@@ -17,28 +17,7 @@ let map, marker, infoWindow;
 let intialCoords = {lat: -34.6131500, lng: -58.3772300}
 
 //harcodeo datos para probar funciones
-const locations = [
-    {
-        name: 'Aeroterra', 
-        address: 'Av. E. Madero 1020', 
-        phoneNumber: '549 11 5272 0900', 
-        category: 'Residencial', 
-        coords: {
-            lat: -34.595986,
-            lng: -58.3724715
-        }
-    },
-    {
-        name: 'Workinn', 
-        address: 'Pres. Tte. Gral. Juan Domingo Perón 698', 
-        phoneNumber: '3333333', 
-        category: 'Residencial', 
-        coords: {
-            lat: -34.6058542,
-            lng: -58.3786129
-        }
-    }
-]
+const locations = []
 
 //funciones auxiliares
 //función que trae los valores del formulario
@@ -53,7 +32,7 @@ function initMap (){
         zoom: 12
     });
 
-    locations.map(l => addMarker(l))
+    getLocations()
     
 }
 
@@ -73,6 +52,17 @@ const addMarker = location => {
         infoWindow.open(map, marker)
     })
 }
+
+const getLocations = () => {
+    fetch('/api/locations')
+    .then(res => res.json())
+    .then(res => {
+        console.log(res.locations)
+        mappingLocations(res.locations)
+    })
+}
+
+const mappingLocations = locations => locations.map(l => addMarker(l))
 
 
 const getFormData = () => {
