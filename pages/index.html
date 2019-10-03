@@ -10,7 +10,7 @@
 </head>
 <body>
     <main>
-        <form>
+        <form id="my-form">
             <div class="form-group">
                 <label for="form-name">Nombre: </label>
                 <input class="form-control" type="text" id="form-name" placeholder="Av. E. Madero 1020">
@@ -37,7 +37,7 @@
                 <input class="form-control" number="text" id="form-coord-lng" placeholder="lng: -58.3772300">
             </div>
 
-            <button class="btn btn-primary" onclick="getFormData()">Agregar</button>
+            <button type="submit" class="btn btn-primary" >Agregar</button>
         </form>
         <section>
             <div id="map"></div>

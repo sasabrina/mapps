@@ -5,7 +5,6 @@ locations = JSON.parse(locations)
 
 const getLocation = (req, res, next) => {
     res.json( {locations} )
-    next()
 }
 
 const postLocation = (req, res, next) => {
@@ -18,7 +17,6 @@ const postLocation = (req, res, next) => {
     } else {
         res.status('400').json('Opps! Somenthing went wrong')
     }
-    next()
 }
 
 module.exports = { getLocation, postLocation };

@@ -77,7 +77,7 @@ const markerPoup = data => {
 }
 
 // obtiene los datos cargados en el formulario y crea el nuevo punto de interés para cargar a la api
-const getFormData = () => {
+const getFormData = (event) => {
     event.preventDefault()
     let name = getInputValue('form-name'),
         address = getInputValue('form-address'),
@@ -91,6 +91,10 @@ const getFormData = () => {
     postNewLocations(newLocation)
 }
 
+const form = document.getElementById('my-form')
+form.onsubmit = () => getFormData(event)
+
+
 //carga nuevos puntos de interés en la api
 const postNewLocations = newLocation => {
     fetch('/api/locations', {
@@ -103,7 +107,7 @@ const postNewLocations = newLocation => {
     .then(res => res.json())
     .then(res => {
         console.log(res)
-        initMap()
+        getLocations()
     })
     .catch(error => console.log(error))
 }
