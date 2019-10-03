@@ -14,7 +14,7 @@ class Location {
 // VARIABLES GLOBALES
 
 const mapNode = document.getElementById('map');
-let map, marker, infoWindow, name, address, phoneNumber, lat, lng;
+let map, infoWindow, name, address, phoneNumber, lat, lng;
 let intialCoords = {lat: -34.6131500, lng: -58.3772300}
 
 // FUNCIONES AUXILIARES
@@ -51,13 +51,13 @@ const mappingLocations = locations => locations.map(l => addMarker(l))
 
 //función que agrega el marcador en el mapa
 const addMarker = location => {
-    marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
         position: location.coords,
         map: map
     })
 
     infoWindow = new google.maps.InfoWindow({
-        content: markerPoup(location)
+        content: markerPopup(location)
     })
 
     marker.addListener('click', function(){
@@ -66,7 +66,7 @@ const addMarker = location => {
 }
 
 //crea el contenido de infoWindow
-const markerPoup = data => {
+const markerPopup = data => {
     let {name, address, phoneNumber, category, coords} = data
 
     return `<p>Descripción: ${name}.</p>
