@@ -1,7 +1,7 @@
 {
-  "name": "aeoterra",
+  "name": "mapps",
   "version": "1.0.0",
-  "description": "Aeroterra challenge",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
