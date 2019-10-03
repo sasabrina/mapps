@@ -69,11 +69,11 @@ const addMarker = location => {
 const markerPopup = data => {
     let {name, address, phoneNumber, category, coords} = data
 
-    return `<p>Descripción: ${name}.</p>
-    <p>Dirección: ${address}</p>
-    <p>Teléfono: ${phoneNumber}</p>
-    <p>(X, Y): ${coords.lat}, ${coords.lng}</p>
-    <p>Categoría: ${category}</p>`
+    return `<p><span>Descripción:</span> ${name}.</p>
+    <p><span>Dirección:</span> ${address}</p>
+    <p><span>Teléfono:</span> ${phoneNumber}</p>
+    <p><span>(X, Y):</span> ${coords.lat}, ${coords.lng}</p>
+    <p><span>Categoría:</span> ${category}</p>`
 }
 
 // obtiene los datos cargados en el formulario y crea el nuevo punto de interés para cargar a la api

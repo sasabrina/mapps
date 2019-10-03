@@ -17,10 +17,15 @@ form{
   color: #ffffff;
   padding: 10px;
 }
+#form-coord-lng{
+  margin-top: 5px;
+}
 section{
   width: 70%;
-  
 }
 #map {
   height: 100%;
+}
+span{
+  font-weight: bold;
 }
