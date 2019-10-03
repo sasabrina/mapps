@@ -14,7 +14,7 @@ class Location {
 // VARIABLES GLOBALES
 
 const mapNode = document.getElementById('map');
-let map, marker, infoWindow;
+let map, marker, infoWindow, name, address, phoneNumber, lat, lng;
 let intialCoords = {lat: -34.6131500, lng: -58.3772300}
 
 // FUNCIONES AUXILIARES
@@ -79,12 +79,12 @@ const markerPoup = data => {
 // obtiene los datos cargados en el formulario y crea el nuevo punto de interés para cargar a la api
 const getFormData = (event) => {
     event.preventDefault()
-    let name = getInputValue('form-name'),
-        address = getInputValue('form-address'),
-        phoneNumber = getInputValue('form-phone'),
-        category = getInputValue('form-category'),
-        lat = parseFloat(getInputValue('form-coord-lat')),
-        lng = parseFloat(getInputValue('form-coord-lng'))
+    name = getInputValue('form-name'),
+    address = getInputValue('form-address'),
+    phoneNumber = getInputValue('form-phone'),
+    category = getInputValue('form-category'),
+    lat = parseFloat(getInputValue('form-coord-lat')),
+    lng = parseFloat(getInputValue('form-coord-lng'))
 
     let newLocation = new Location(name, address, phoneNumber, category, lat, lng)
     console.log(newLocation);
